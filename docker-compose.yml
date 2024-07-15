@@ -1,17 +1,22 @@
 services:
-  pgbackups3:
+  pgbackup:
     build: .
-    environment:
-      SCHEDULE: '0 7-19/2 * * *'
+    restart: always
+    container_name: pgbackup
+    stdin_open: true
+    tty: true    
+    # environment:
+    #   POSTGRES_PASSWORD: example
+      #SCHEDULE: '0 7-19/2 * * *'
       #SCHEDULE: '**None**'
-      S3_REGION: us-west-1
-      S3_ACCESS_KEY_ID: 
-      S3_SECRET_ACCESS_KEY: 
-      S3_BUCKET: prime-prod-backup
-      S3_PREFIX: backup
-      POSTGRES_BACKUP_ALL: "false"
-      POSTGRES_HOST: 
-      POSTGRES_DATABASE: prod
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 
-      POSTGRES_PORT: 5433
+      # S3_REGION: us-west-1
+      # S3_ACCESS_KEY_ID: 
+      # S3_SECRET_ACCESS_KEY: 
+      # S3_BUCKET: prime-prod-backup
+      # S3_PREFIX: backup
+      # POSTGRES_BACKUP_ALL: "false"
+      # POSTGRES_HOST: 
+      # POSTGRES_DATABASE: prod
+      # POSTGRES_USER: postgres
+      # POSTGRES_PASSWORD: 
+      # POSTGRES_PORT: 5433
