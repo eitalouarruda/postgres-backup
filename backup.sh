@@ -84,10 +84,10 @@ if [ "${POSTGRES_BACKUP_ALL}" == "true" ]; then
     DEST_FILE="${DEST_FILE}.enc"
   fi
 
-  echo "Uploading dump to $S3_BUCKET"
+  echo "Enviando o backup para $S3_BUCKET"
   cat $SRC_FILE | aws $AWS_ARGS s3 cp - "s3://${S3_BUCKET}${S3_PREFIX}${DEST_FILE}" || exit 2
 
-  echo "SQL backup uploaded successfully"
+  echo "Backup enviado com sucesso."
   rm -rf $SRC_FILE
 else
   OIFS="$IFS"
@@ -103,7 +103,7 @@ else
       DEST_FILE=${S3_FILE_NAME}_${DB}.sql.gz
     fi
     
-    echo "Creating dump of ${DB} database from ${POSTGRES_HOST}..."
+    echo "Criando backup do banco ${DB} em ${POSTGRES_HOST}..."
     pg_dump $POSTGRES_HOST_OPTS $DB | gzip > $SRC_FILE
     
     if [ "${ENCRYPTION_PASSWORD}" != "**None**" ]; then
@@ -117,10 +117,10 @@ else
       DEST_FILE="${DEST_FILE}.enc"
     fi
 
-    echo "Uploading dump to $S3_BUCKET"
+    echo "Enviando o backup para $S3_BUCKET"
     cat $SRC_FILE | aws $AWS_ARGS s3 cp - "s3://${S3_BUCKET}${S3_PREFIX}${DEST_FILE}" || exit 2
 
-    echo "SQL backup uploaded successfully"
+    echo "Backup enviado com sucesso"
     rm -rf $SRC_FILE
   done
 fi
